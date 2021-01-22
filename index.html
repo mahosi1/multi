@@ -16,6 +16,16 @@
     }
 </style>
 
+<input type="text" value="rando 1" onclick="setRand(1);" style="width: 60px;" />
+<input type="text" value="rando 2" onclick="setRand(2);" style="width: 60px;" />
+<input type="text" value="rando 3" onclick="setRand(3);" style="width: 60px;" />
+<input type="text" value="rando 4" onclick="setRand(4);" style="width: 60px;" />
+<input type="text" value="rando 5" onclick="setRand(5);" style="width: 60px;" />
+
+</br>
+</br></br></br>
+
+
 &nbsp;<input type="number" id="a1" maxlength="10" style="width: 100px;margin-left: 12px;margin-bottom: 10px;">
 </br>
 X <input type="number" id="a2" maxlength="10" style="width: 100px;margin-bottom: 10px;">
@@ -37,7 +47,22 @@ X <input type="number" id="a2" maxlength="10" style="width: 100px;margin-bottom:
 
 <script type="text/javascript">
 
+    function setRand(num) {
+        document.getElementById("a1").value = rand(num);
+        document.getElementById("a2").value = rand(num);
+    }
 
+    function rand(num) {
+        var s = '';
+        for (var i = 0; i < num; i++) {
+            if (i === 0) {
+                s = (Math.floor(Math.random() * 9) + 1).toString();
+            } else {
+                s += (Math.floor(Math.random() * 9)).toString();
+            }
+        }
+        return parseInt(s, 10);
+    }
 
 
     function DoMath() {
