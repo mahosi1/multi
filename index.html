@@ -58,12 +58,18 @@ X <input type="number" id="a2" maxlength="10" style="width: 100px;margin-bottom:
 
     function rand(num) {
         var s = '';
-        for (var i = 0; i < num; i++) {
-            if (i === 0) {
-                s = (Math.floor(Math.random() * 9) + 1).toString();
+        var k = '';
+        while (s.length < num) {
+            k = '';
+            if (s === '') {
+                k = (Math.floor(Math.random() * 9) + 1).toString();
             } else {
-                s += (Math.floor(Math.random() * 9)).toString();
+                k = (Math.floor(Math.random() * 9)).toString();
             }
+
+            if (!s.includes(k))
+                s += k;
+
         }
         return parseInt(s, 10);
     }
