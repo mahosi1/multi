@@ -4,6 +4,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
+        .top-buffer {
+            margin-top: 20px;
+        }
+
+
         table,
         th,
         td {
@@ -21,33 +26,43 @@
 
 
 <body>
-    <div class="row">
+    <div class="row top-buffer">
         <div class="col-1" style="border: 1px;">
-            <button onclick="setRand(1);">rando 1</button>
+            <button onclick="setRand(1);" class="btn btn-primary">rando 1</button>
         </div>
         <div class="col-1">
-            <button onclick="setRand(2);">rando 2</button>
+            <button onclick="setRand(2);" class="btn btn-primary">rando 2</button>
         </div>
         <div class="col-1">
-            <button onclick="setRand(3);">rando 3</button>
+            <button onclick="setRand(3);" class="btn btn-primary">rando 3</button>
         </div>
         <div class="col-1">
-            <button onclick="setRand(4);">rando 4</button>
+            <button onclick="setRand(4);" class="btn btn-primary">rando 4</button>
         </div>
         <div class="col-1">
-            <button onclick="setRand(5);">rando 5</button>
+            <button onclick="setRand(5);" class="btn btn-primary">rando 5</button>
         </div>
     </div>
 
 
-    <div class="row">
-        <div class="col-1">
+    <div class="row top-buffer">
+        <div class="col-2">
+            <button onclick="calculate()" class="btn btn-success">Calculate</button>
+        </div>
+    </div>
+
+
+
+    <div class="row top-buffer">
+        <div class="col-1"></div>
+        <div class="col-2">
             <input type="number" id="a1" maxlength="10" class="form-control">
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-1">
+    <div class="row top-buffer">
+        <div class="col-1"></div>
+        <div class="col-2">
             <input type="number" id="a2" maxlength="10" class="form-control">
         </div>
     </div>
@@ -55,9 +70,8 @@
 
 
 
-    <hr style="width:120px; margin: 0px;">
 
-    <input type="submit" style="margin-top: 30px;" value="Calculate" onclick="calculate()" />
+
 
     <div id="problem" style="margin-top: 30px;">
     </div>
@@ -107,7 +121,10 @@
 
         function calculate() {
             var firstNumber = document.getElementById("a1").value;
+            if (firstNumber === '') return;
+
             var secondNumber = document.getElementById("a2").value;
+            if (secondNumber === '') return;
 
 
             var table = makeTable();
@@ -221,7 +238,6 @@
             table.classList.add("table");
             table.classList.add("table-bordered");
             return table;
-
         }
 
 
