@@ -92,6 +92,10 @@
         function setRand(num) {
             document.getElementById("a1").value = rand(num);
             document.getElementById("a2").value = rand(num);
+            clear("problem");
+            clear("carry");
+            clear("work");
+            clear("results");
         }
 
         function rand(num) {
@@ -112,6 +116,10 @@
             return parseInt(s, 10);
         }
 
+        function clear(tagName) {
+            var divTag = document.getElementById(tagName);
+            divTag.innerHTML = "";
+        }
 
         function addTable(tagName, table) {
             var divTag = document.getElementById(tagName);
