@@ -8,6 +8,12 @@
             margin-top: 20px;
         }
 
+
+        .content {
+            margin: auto;
+            width: 800px;
+        }
+
         table,
         th,
         td {
@@ -24,54 +30,56 @@
 
 
 <body>
-    <div class="row top-buffer">
-        <div class="col-1" style="border: 1px;">
-            <button onclick="setRand(1);" class="btn btn-primary">rando 1</button>
+    <div class="content">
+        <div class="row top-buffer">
+            <div class="col" style="border: 1px;">
+                <button onclick="setRand(1);" class="btn btn-primary">rando 1</button>
+            </div>
+            <div class="col">
+                <button onclick="setRand(2);" class="btn btn-primary">rando 2</button>
+            </div>
+            <div class="col">
+                <button onclick="setRand(3);" class="btn btn-primary">rando 3</button>
+            </div>
+            <div class="col">
+                <button onclick="setRand(4);" class="btn btn-primary">rando 4</button>
+            </div>
+            <div class="col">
+                <button onclick="setRand(5);" class="btn btn-primary">rando 5</button>
+            </div>
         </div>
-        <div class="col-1">
-            <button onclick="setRand(2);" class="btn btn-primary">rando 2</button>
-        </div>
-        <div class="col-1">
-            <button onclick="setRand(3);" class="btn btn-primary">rando 3</button>
-        </div>
-        <div class="col-1">
-            <button onclick="setRand(4);" class="btn btn-primary">rando 4</button>
-        </div>
-        <div class="col-1">
-            <button onclick="setRand(5);" class="btn btn-primary">rando 5</button>
-        </div>
-    </div>
 
 
-    <div class="row top-buffer">
-        <div class="col-2">
-            <button onclick="calculate()" class="btn btn-success">Calculate</button>
+        <div class="row top-buffer">
+            <div class="col">
+                <button onclick="calculate()" class="btn btn-success">Calculate</button>
+            </div>
+            <div class="col">
+                <label for="hidecarry">Hide Carry</label>
+                <input type="checkbox" class="form-control" id="hidecarry" name="hidecarry"
+                    onclick="handleClick(this)" />
+
+            </div>
         </div>
-        <div class="col-2">
-            <label for="hidecarry">Hide Carry</label>
-            <input type="checkbox" class="form-control" id="hidecarry" name="hidecarry" onclick="handleClick(this)" />
 
+
+
+        <div class="row top-buffer">
+            <div class="col-2">
+                <input type="number" id="a1" maxlength="10" class="form-control">
+            </div>
         </div>
-    </div>
 
-
-
-    <div class="row top-buffer">
-        <div class="col-1"></div>
-        <div class="col-2">
-            <input type="number" id="a1" maxlength="10" class="form-control">
+        <div class="row top-buffer">
+            <div class="col-2">
+                <input type="number" id="a2" maxlength="10" class="form-control">
+            </div>
         </div>
-    </div>
 
-    <div class="row top-buffer">
-        <div class="col-1"></div>
-        <div class="col-2">
-            <input type="number" id="a2" maxlength="10" class="form-control">
+
+        <div id="work" style="margin-top: 5px;">
         </div>
-    </div>
 
-
-    <div id="work" style="margin-top: 5px;">
     </div>
 
     <script type="text/javascript">
