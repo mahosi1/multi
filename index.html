@@ -71,18 +71,11 @@
     </div>
 
 
-    <div id="problem" style="margin-top: 30px;">
-    </div>
-
     <div id="work" style="margin-top: 5px;">
-    </div>
-
-    <div id="results" style="margin-top: 30px;">
     </div>
 
     <script type="text/javascript">
         "use strict";
-
 
         var carryRow;
 
@@ -97,9 +90,7 @@
         function setRand(num) {
             document.getElementById("a1").value = rand(num);
             document.getElementById("a2").value = rand(num);
-            clear("problem");
             clear("work");
-            clear("results");
         }
 
         function rand(num) {
@@ -158,7 +149,7 @@
                     var pad = num1.toString().length + i + 1;
                     val = val.padStart(pad, '0');
                 }
-                loadTable1(val, workTable,
+                loadTable(val, workTable,
                     {
                         spots: cells,
                         rowFunc: function (row) {
@@ -168,9 +159,7 @@
                     });
             }
 
-            var resultsTable = makeTable();
-            addTable("results", resultsTable);
-            loadTable1(
+            loadTable(
                 (parseInt(firstNumber, 10) * parseInt(secondNumber, 10)).toString(),
                 workTable,
                 {
@@ -224,7 +213,7 @@
                 carriesByPosition.unshift(carry);
             }
 
-            loadTable1(
+            loadTable(
                 carriesByPosition,
                 workTable,
                 {
@@ -236,9 +225,8 @@
                     index: 0,
                 });
 
-            loadTable1(secondNumber, workTable, { index: 0, spots: cells });
-            loadTable1(firstNumber, workTable, { index: 0, spots: cells });
-
+            loadTable(secondNumber, workTable, { index: 0, spots: cells });
+            loadTable(firstNumber, workTable, { index: 0, spots: cells });
 
         }
 
@@ -251,7 +239,7 @@
             return table;
         }
 
-        function loadTable1(num, table, options) {
+        function loadTable(num, table, options) {
 
             var options = options || {};
             var spots = options.spots;
@@ -275,7 +263,6 @@
             }
             theNumbers.push(tmp);
 
-
             var columnCount = theNumbers[0].length;
 
             var row = table.insertRow(index);
@@ -288,10 +275,7 @@
             if (rowFunc) {
                 rowFunc(row);
             }
-
-
         }
-
 
         function reverseString(str) {
             var newString = "";
