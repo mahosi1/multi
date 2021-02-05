@@ -8,7 +8,6 @@
             margin-top: 20px;
         }
 
-
         table,
         th,
         td {
@@ -21,7 +20,6 @@
             padding: 15px;
         }
     </style>
-
 </head>
 
 
@@ -49,6 +47,11 @@
         <div class="col-2">
             <button onclick="calculate()" class="btn btn-success">Calculate</button>
         </div>
+        <div class="col-2">
+            <label for="hidecarry">Hide Carry</label>
+            <input type="checkbox" class="form-control" id="hidecarry" name="hidecarry" onclick="handleClick(this)" />
+
+        </div>
     </div>
 
 
@@ -68,32 +71,33 @@
     </div>
 
 
-
-
-
-
-
     <div id="problem" style="margin-top: 30px;">
     </div>
 
-    <div id="carry" style="margin-top: 30px;">
-    </div>
-
-
     <div id="work" style="margin-top: 5px;">
     </div>
-
 
     <div id="results" style="margin-top: 30px;">
     </div>
 
     <script type="text/javascript">
+        "use strict";
+
+
+        var carryRow;
+
+        function handleClick(cb) {
+            if (!cb.checked) {
+                carryRow.style.color = "White";
+            } else {
+                carryRow.style.color = "DarkRed";
+            }
+        }
 
         function setRand(num) {
             document.getElementById("a1").value = rand(num);
             document.getElementById("a2").value = rand(num);
             clear("problem");
-            clear("carry");
             clear("work");
             clear("results");
         }
@@ -135,22 +139,11 @@
             if (secondNumber === '') return;
 
 
-            var table = makeTable();
-            addTable("problem", table);
-
-
-
-
             var cells = (parseInt(firstNumber, 10) * parseInt(secondNumber, 10)).toString().length;
 
-            loadTable(firstNumber, table, cells);
 
-            loadTable(secondNumber, table, cells);
-
-
-            table = makeTable();
-            addTable("work", table);
-
+            var workTable = makeTable();
+            addTable("work", workTable);
 
             var lines = [];
 
@@ -165,29 +158,27 @@
                     var pad = num1.toString().length + i + 1;
                     val = val.padStart(pad, '0');
                 }
-                loadTable(val, table, cells);
+                loadTable1(val, workTable,
+                    {
+                        spots: cells,
+                        rowFunc: function (row) {
+                            row.style.backgroundColor = "LightBlue";
+                            row.style.color = "Black";
+                        }
+                    });
             }
 
-
-
-            table = makeTable();
-            addTable("results", table);
-
-
-
-            loadTable((parseInt(firstNumber, 10) * parseInt(secondNumber, 10)).toString(), table);
-
-            //4157
-            //2581
-
-
-            table = makeTable();
-            table.style.backgroundColor = "DarkRed";
-            table.style.color = "White";
-
-            addTable("carry", table);
-
-
+            var resultsTable = makeTable();
+            addTable("results", resultsTable);
+            loadTable1(
+                (parseInt(firstNumber, 10) * parseInt(secondNumber, 10)).toString(),
+                workTable,
+                {
+                    rowFunc: function (row) {
+                        row.style.backgroundColor = "DarkBlue";
+                        row.style.color = "White";
+                    }
+                });
 
 
             // just 0 pad the multiplication lines
@@ -203,9 +194,8 @@
             }
 
 
-
             var sumsByPosition = [];
-
+            var j = 0;
             for (i = max - 1; i >= 0; i--) {
                 var sum = 0;
                 for (j = 0; j < lines.length; j++) {
@@ -234,7 +224,20 @@
                 carriesByPosition.unshift(carry);
             }
 
-            loadTable(carriesByPosition, table);
+            loadTable1(
+                carriesByPosition,
+                workTable,
+                {
+                    rowFunc: function (row) {
+                        row.style.backgroundColor = "DarkRed";
+                        row.style.color = "White";
+                        carryRow = row;
+                    },
+                    index: 0,
+                });
+
+            loadTable1(secondNumber, workTable, { index: 0, spots: cells });
+            loadTable1(firstNumber, workTable, { index: 0, spots: cells });
 
 
         }
@@ -248,15 +251,23 @@
             return table;
         }
 
+        function loadTable1(num, table, options) {
 
-        function loadTable(num, table, spots) {
+            var options = options || {};
+            var spots = options.spots;
+            var rowFunc = options.rowFunc;
+            var index = -1;
+            if (options.index !== undefined) {
+                index = options.index;
+            }
+
             var theNumbers = new Array();
 
             var tmp = [];
             if (spots) {
                 var delta = spots - num.toString().length;
                 for (var j = 0; j < delta; j++) {
-                    tmp.push('&nbsp;&nbsp;');
+                    tmp.push('');
                 }
             }
             for (var i = 0; i < num.length; i++) {
@@ -267,14 +278,20 @@
 
             var columnCount = theNumbers[0].length;
 
-            var row = table.insertRow(-1);
+            var row = table.insertRow(index);
             for (var i = 0; i < columnCount; i++) {
                 var headerCell = document.createElement("TH");
                 headerCell.innerHTML = theNumbers[0][i];
 
                 row.appendChild(headerCell);
             }
+            if (rowFunc) {
+                rowFunc(row);
+            }
+
+
         }
+
 
         function reverseString(str) {
             var newString = "";
