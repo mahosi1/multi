@@ -63,7 +63,6 @@
         </div>
 
 
-
         <div class="row top-buffer">
             <div class="col-1"></div>
             <div class="col-2">
@@ -78,6 +77,13 @@
             </div>
         </div>
 
+        <div class="row top-buffer">
+            <div class="col-1">Your answer</div>
+            <div class="col-2">
+                <input type="number" id="answer" maxlength="10" class="form-control">
+                <img id="imgResult" />
+            </div>
+        </div>
 
         <div id="work" style="margin-top: 5px;">
         </div>
@@ -125,6 +131,12 @@
             var divTag = document.getElementById("work");
             divTag.innerHTML = "";
             document.getElementById("hidecarry").checked = false;
+
+            var img = document.getElementById("imgResult");
+            img.src = '';
+
+            document.getElementById("answer").value = '';
+
         }
 
         function addTable(tagName, table) {
@@ -134,11 +146,26 @@
         }
 
         function calculate() {
+
+            var img = document.getElementById("imgResult");
+            img.src = '';
+
             var firstNumber = document.getElementById("a1").value;
             if (firstNumber === '') return;
 
             var secondNumber = document.getElementById("a2").value;
             if (secondNumber === '') return;
+
+            var yourAnswer = document.getElementById("answer").value;
+            if (yourAnswer) {
+                var theResult = parseInt(firstNumber, 10) * parseInt(secondNumber, 10);
+
+                if (theResult === parseInt(yourAnswer, 10)) {
+                    img.src = "https://media.giphy.com/media/o75ajIFH0QnQC3nCeD/giphy.gif";
+                } else {
+                    img.src = "https://media.giphy.com/media/YTJXDIivNMPuNSMgc0/giphy.gif";
+                }
+            }
 
 
             var cells = (parseInt(firstNumber, 10) * parseInt(secondNumber, 10)).toString().length;
