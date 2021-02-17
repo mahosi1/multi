@@ -8,6 +8,10 @@
             margin-top: 20px;
         }
 
+        /* .row [class*='col-'] {
+            background-color: red;
+        } */
+
 
         .content {
             margin: auto;
@@ -58,7 +62,6 @@
                 <input type="checkbox" class="formcheck-control" id="hidecarry" name="hidecarry"
                     onclick="handleClick(this)" />
                 <label for="hidecarry" class="formcheck-label">Hide Carry</label>
-
             </div>
         </div>
 
@@ -94,6 +97,7 @@
         "use strict";
 
         var carryRow;
+        var last1, last2;
 
         function handleClick(cb) {
             if (!cb.checked) {
@@ -147,8 +151,6 @@
 
         function calculate() {
 
-            var img = document.getElementById("imgResult");
-            img.src = '';
 
             var firstNumber = document.getElementById("a1").value;
             if (firstNumber === '') return;
@@ -156,16 +158,30 @@
             var secondNumber = document.getElementById("a2").value;
             if (secondNumber === '') return;
 
+
             var yourAnswer = document.getElementById("answer").value;
             if (yourAnswer) {
                 var theResult = parseInt(firstNumber, 10) * parseInt(secondNumber, 10);
+                var img = document.getElementById("imgResult");
 
                 if (theResult === parseInt(yourAnswer, 10)) {
-                    img.src = "https://media.giphy.com/media/o75ajIFH0QnQC3nCeD/giphy.gif";
+                    if (last1 === firstNumber && last2 === secondNumber) {
+                        img.src = "https://media.giphy.com/media/vgUFOWBwBkziE/giphy.gif";
+                    } else {
+                        img.src = "https://media.giphy.com/media/o75ajIFH0QnQC3nCeD/giphy.gif";
+                    }
                 } else {
-                    img.src = "https://media.giphy.com/media/YTJXDIivNMPuNSMgc0/giphy.gif";
+                    img.src = "https://media.giphy.com/media/pdVzZpZ6mLp9MhP36y/giphy.gif";
+                    last1 = firstNumber;
+                    last2 = secondNumber;
+                    return;
                 }
             }
+
+            last1 = firstNumber;
+            last2 = secondNumber;
+
+
 
 
             var cells = (parseInt(firstNumber, 10) * parseInt(secondNumber, 10)).toString().length;
